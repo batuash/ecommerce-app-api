@@ -53,6 +53,8 @@ PORT=3000
 - `npm run migration:revert` - Revert the last migration
 - `npm run migration:generate` - Generate a new migration from entity changes
 - `npm run migration:create` - Create an empty migration file
+- `npm run seed` - Populate the database with demo data
+- `npm run seed:reset` - Reset database (revert migrations, run migrations, and seed)
 
 ## Products Table Schema
 
