@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { Product } from './product.entity';
+import { Product } from './models/product.entity';
 
 // TODO:adam maybe reuse this in the app.module.ts?
 export const AppDataSource = new DataSource({

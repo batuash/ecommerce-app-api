@@ -1,5 +1,5 @@
 import { AppDataSource } from './data-source';
-import { Product } from './product.entity';
+import { Product } from './models/product.entity';
 
 const demoProducts = [
   {
