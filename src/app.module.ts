@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ProductsModule } from './products/products.module';
 
 // TODO:adam should this realy be hardcoded?
 @Module({
@@ -18,6 +19,7 @@ import { AppService } from './app.service';
       synchronize: process.env.NODE_ENV !== 'production', // Only for development
       logging: process.env.NODE_ENV === 'development',
     }),
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
