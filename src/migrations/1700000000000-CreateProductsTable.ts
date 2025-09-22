@@ -76,10 +76,18 @@ export class CreateProductsTable1700000000000 implements MigrationInterface {
     );
 
     // Create indexes for better performance
-    await queryRunner.query(`CREATE INDEX "IDX_products_name" ON "products" ("name")`);
-    await queryRunner.query(`CREATE INDEX "IDX_products_category" ON "products" ("category")`);
-    await queryRunner.query(`CREATE INDEX "IDX_products_sku" ON "products" ("sku")`);
-    await queryRunner.query(`CREATE INDEX "IDX_products_isActive" ON "products" ("isActive")`);
+    await queryRunner.query(
+      `CREATE INDEX "IDX_products_name" ON "products" ("name")`,
+    );
+    await queryRunner.query(
+      `CREATE INDEX "IDX_products_category" ON "products" ("category")`,
+    );
+    await queryRunner.query(
+      `CREATE INDEX "IDX_products_sku" ON "products" ("sku")`,
+    );
+    await queryRunner.query(
+      `CREATE INDEX "IDX_products_isActive" ON "products" ("isActive")`,
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
