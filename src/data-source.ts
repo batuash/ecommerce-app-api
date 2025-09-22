@@ -1,16 +1,23 @@
 import { DataSource } from 'typeorm';
+import { config } from 'dotenv';
 import { Product } from './models/product.entity';
+import configuration from './config/configuration';
 
-// TODO:adam maybe reuse this in the app.module.ts?
+// Load environment variables
+config();
+
+// Get configuration
+const appConfig = configuration();
+
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT || '5432'),
-  username: process.env.DB_USERNAME || 'adam',
-  password: process.env.DB_PASSWORD || 'password',
-  database: process.env.DB_DATABASE || 'my_nestjs_app',
+  host: appConfig.database.host,
+  port: appConfig.database.port,
+  username: appConfig.database.username,
+  password: appConfig.database.password,
+  database: appConfig.database.database,
   entities: [Product],
   migrations: ['src/migrations/*.ts'],
   synchronize: false, // Always false for migrations
-  logging: process.env.NODE_ENV === 'development',
+  logging: appConfig.typeorm.logging,
 });
