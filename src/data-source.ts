@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { config } from 'dotenv';
-import { Product } from './models/product.entity';
+import models from './models';
 import configuration from './config/configuration';
 
 // Load environment variables
@@ -16,7 +16,7 @@ export const AppDataSource = new DataSource({
   username: appConfig.database.username,
   password: appConfig.database.password,
   database: appConfig.database.database,
-  entities: [Product],
+  entities: Object.values(models),
   migrations: ['src/migrations/*.ts'],
   synchronize: false, // Always false for migrations
   logging: appConfig.typeorm.logging,
