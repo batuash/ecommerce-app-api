@@ -15,7 +15,7 @@ export class Product {
   name: string;
 
   @Column({ type: 'text', nullable: true })
-  description: string;
+  description: string | null;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
@@ -24,10 +24,10 @@ export class Product {
   stock: number;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  category: string;
+  category: string | null;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  sku: string;
+  sku: string | null;
 
   @Column({ type: 'boolean', default: true })
   isActive: boolean;

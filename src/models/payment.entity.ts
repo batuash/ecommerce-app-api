@@ -52,73 +52,73 @@ export class Payment {
 
   // Payment Gateway Information
   @Column({ type: 'varchar', length: 255, nullable: true })
-  gatewayTransactionId: string;
+  gatewayTransactionId: string | null;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  gatewayReference: string;
+  gatewayReference: string | null;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  gatewayName: string;
+  gatewayName: string | null;
 
   // Card Information (encrypted or masked)
   @Column({ type: 'varchar', length: 4, nullable: true })
-  lastFourDigits: string;
+  lastFourDigits: string | null;
 
   @Column({ type: 'varchar', length: 50, nullable: true })
-  cardBrand: string;
+  cardBrand: string | null;
 
   @Column({ type: 'varchar', length: 2, nullable: true })
-  expiryMonth: string;
+  expiryMonth: string | null;
 
   @Column({ type: 'varchar', length: 4, nullable: true })
-  expiryYear: string;
+  expiryYear: string | null;
 
   // Billing Address
   @Column({ type: 'varchar', length: 100, nullable: true })
-  billingFirstName: string;
+  billingFirstName: string | null;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  billingLastName: string;
+  billingLastName: string | null;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  billingAddressLine1: string;
+  billingAddressLine1: string | null;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  billingAddressLine2: string;
+  billingAddressLine2: string | null;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  billingCity: string;
+  billingCity: string | null;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  billingState: string;
+  billingState: string | null;
 
   @Column({ type: 'varchar', length: 20, nullable: true })
-  billingPostalCode: string;
+  billingPostalCode: string | null;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  billingCountry: string;
+  billingCountry: string | null;
 
   // Payment Processing Details
   @Column({ type: 'timestamp', nullable: true })
-  processedAt: Date;
+  processedAt: Date | null;
 
   @Column({ type: 'timestamp', nullable: true })
-  failedAt: Date;
+  failedAt: Date | null;
 
   @Column({ type: 'text', nullable: true })
-  failureReason: string;
+  failureReason: string | null;
 
   @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
   refundedAmount: number;
 
   @Column({ type: 'timestamp', nullable: true })
-  refundedAt: Date;
+  refundedAt: Date | null;
 
   @Column({ type: 'text', nullable: true })
-  refundReason: string;
+  refundReason: string | null;
 
   @Column({ type: 'text', nullable: true })
-  notes: string;
+  notes: string | null;
 
   @CreateDateColumn()
   createdAt: Date;

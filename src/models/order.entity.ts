@@ -34,10 +34,10 @@ export class Order {
   customerEmail: string;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  customerName: string;
+  customerName: string | null;
 
   @Column({ type: 'varchar', length: 20, nullable: true })
-  customerPhone: string;
+  customerPhone: string | null;
 
   @Column({ type: 'enum', enum: OrderStatus, default: OrderStatus.PENDING })
   status: OrderStatus;
@@ -58,13 +58,13 @@ export class Order {
   currency: string;
 
   @Column({ type: 'text', nullable: true })
-  notes: string;
+  notes: string | null;
 
   @Column({ type: 'timestamp', nullable: true })
-  shippedAt: Date;
+  shippedAt: Date | null;
 
   @Column({ type: 'timestamp', nullable: true })
-  deliveredAt: Date;
+  deliveredAt: Date | null;
 
   @CreateDateColumn()
   createdAt: Date;

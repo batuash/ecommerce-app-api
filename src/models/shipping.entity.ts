@@ -51,7 +51,7 @@ export class Shipping {
   addressLine1: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  addressLine2: string;
+  addressLine2: string | null;
 
   @Column({ type: 'varchar', length: 100 })
   city: string;
@@ -66,35 +66,35 @@ export class Shipping {
   country: string;
 
   @Column({ type: 'varchar', length: 20, nullable: true })
-  phone: string;
+  phone: string | null;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  email: string;
+  email: string | null;
 
   // Shipping Details
   @Column({ type: 'varchar', length: 100, nullable: true })
-  carrier: string;
+  carrier: string | null;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  trackingNumber: string;
+  trackingNumber: string | null;
 
   @Column({ type: 'timestamp', nullable: true })
-  estimatedDeliveryDate: Date;
+  estimatedDeliveryDate: Date | null;
 
   @Column({ type: 'timestamp', nullable: true })
-  shippedDate: Date;
+  shippedDate: Date | null;
 
   @Column({ type: 'timestamp', nullable: true })
-  deliveredDate: Date;
+  deliveredDate: Date | null;
 
   @Column({ type: 'decimal', precision: 8, scale: 2, nullable: true })
-  weight: number;
+  weight: number | null;
 
   @Column({ type: 'varchar', length: 10, nullable: true })
-  weightUnit: string;
+  weightUnit: string | null;
 
   @Column({ type: 'text', nullable: true })
-  notes: string;
+  notes: string | null;
 
   @CreateDateColumn()
   createdAt: Date;

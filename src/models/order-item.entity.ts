@@ -25,7 +25,7 @@ export class OrderItem {
   productName: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  productSku: string;
+  productSku: string | null;
 
   @Column({ type: 'integer' })
   quantity: number;
