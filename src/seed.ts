@@ -1,5 +1,9 @@
 import { AppDataSource } from './data-source';
 import { Product } from './models/product.entity';
+import { Order } from './models/order.entity';
+import { OrderItem } from './models/order-item.entity';
+import { Payment } from './models/payment.entity';
+import { Shipping } from './models/shipping.entity';
 
 const demoProducts = [
   {
@@ -153,6 +157,60 @@ const demoProducts = [
   },
 ];
 
+async function resetTables() {
+  try {
+    console.log('🗑️  Starting table reset...');
+
+    // Initialize the data source
+    await AppDataSource.initialize();
+    console.log('✅ Database connection established');
+
+    // Get repositories for all tables
+    const orderItemRepository = AppDataSource.getRepository(OrderItem);
+    const orderRepository = AppDataSource.getRepository(Order);
+    const paymentRepository = AppDataSource.getRepository(Payment);
+    const productRepository = AppDataSource.getRepository(Product);
+    const shippingRepository = AppDataSource.getRepository(Shipping);
+
+    // Clear tables in the correct order due to foreign key constraints
+    // Using raw SQL DELETE to avoid foreign key constraint issues
+    console.log('🧹 Clearing order_items table...');
+    await orderItemRepository.query('DELETE FROM order_items');
+
+    console.log('🧹 Clearing payments table...');
+    await paymentRepository.query('DELETE FROM payments');
+
+    console.log('🧹 Clearing shipping table...');
+    await shippingRepository.query('DELETE FROM shipping');
+
+    console.log('🧹 Clearing orders table...');
+    await orderRepository.query('DELETE FROM orders');
+
+    console.log('🧹 Clearing products table...');
+    await productRepository.query('DELETE FROM products');
+
+    console.log('✅ All tables have been reset successfully!');
+
+    // Display summary
+    console.log('\n📊 Reset Summary:');
+    console.log('   • order_items: Cleared');
+    console.log('   • orders: Cleared');
+    console.log('   • payments: Cleared');
+    console.log('   • products: Cleared');
+    console.log('   • shipping: Cleared');
+
+  } catch (error) {
+    console.error('❌ Error resetting tables:', error);
+    process.exit(1);
+  } finally {
+    // Close the database connection
+    if (AppDataSource.isInitialized) {
+      await AppDataSource.destroy();
+      console.log('🔌 Database connection closed');
+    }
+  }
+}
+
 async function seedDatabase() {
   try {
     console.log('🌱 Starting database seeding...');
@@ -209,5 +267,16 @@ async function seedDatabase() {
   }
 }
 
-// Run the seed function
-seedDatabase();
+// Check command line arguments to determine action
+const args = process.argv.slice(2);
+const action = args[0];
+
+if (action === 'reset') {
+  resetTables().then(() => {
+    console.log('🌱 Running database seeding...');
+    seedDatabase();
+  });
+} else {
+  console.log('🌱 Running database seeding...');
+  seedDatabase();
+}
