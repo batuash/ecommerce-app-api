@@ -19,7 +19,7 @@ import {
   mockPaymentRepository,
   mockProductsRepository,
   mockDataSource,
-} from '../test/mocks';
+} from '../../test/mocks';
 
 describe('Orders Integration Tests', () => {
   let app: INestApplication;

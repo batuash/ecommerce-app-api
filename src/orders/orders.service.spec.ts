@@ -23,7 +23,7 @@ import {
   mockPaymentRepository,
   mockProductsRepository,
   mockDataSource,
-} from '../test/mocks';
+} from '../../test/mocks';
 
 describe('OrdersService', () => {
   let service: OrdersService;

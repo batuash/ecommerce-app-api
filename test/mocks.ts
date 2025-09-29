@@ -1,9 +1,9 @@
-import { CreateOrderDto } from '../orders/dto/create-order.dto';
-import { Order, OrderStatus } from '../models/order.entity';
-import { OrderItem } from '../models/order-item.entity';
-import { Shipping, ShippingStatus, ShippingMethod } from '../models/shipping.entity';
-import { Payment, PaymentStatus, PaymentMethod } from '../models/payment.entity';
-import { Product } from '../models/product.entity';
+import { CreateOrderDto } from '../src/orders/dto/create-order.dto';
+import { Order, OrderStatus } from '../src/models/order.entity';
+import { OrderItem } from '../src/models/order-item.entity';
+import { Shipping, ShippingStatus, ShippingMethod } from '../src/models/shipping.entity';
+import { Payment, PaymentStatus, PaymentMethod } from '../src/models/payment.entity';
+import { Product } from '../src/models/product.entity';
 import { QueryRunner } from 'typeorm';
 
 // Mock IDs
