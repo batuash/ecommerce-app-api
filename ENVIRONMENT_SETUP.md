@@ -21,9 +21,9 @@ The application supports multiple environment files:
 ### Database Configuration
 - `DB_HOST` - Database host (default: localhost)
 - `DB_PORT` - Database port (default: 5432)
-- `DB_USERNAME` - Database username (default: adam)
+- `DB_USERNAME` - Database username (default: username)
 - `DB_PASSWORD` - Database password (default: password)
-- `DB_DATABASE` - Database name (default: my_nestjs_app)
+- `DB_DATABASE` - Database name (default: ecommerce_app)
 
 ### TypeORM Configuration
 - `TYPEORM_SYNCHRONIZE` - Auto-sync database schema (default: true for non-production)

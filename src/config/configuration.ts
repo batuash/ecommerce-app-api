@@ -5,7 +5,7 @@ export default () => ({
     port: parseInt(process.env.DB_PORT || '5432', 10),
     username: process.env.DB_USERNAME || 'username',
     password: process.env.DB_PASSWORD || 'password',
-    database: process.env.DB_DATABASE || 'my_app_db',
+    database: process.env.DB_DATABASE || 'ecommerce_app',
   },
   typeorm: {
     synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true' || process.env.NODE_ENV !== 'production',

@@ -10,7 +10,7 @@ DB_HOST=localhost
 DB_PORT=5432
 DB_USERNAME=postgres
 DB_PASSWORD=password
-DB_DATABASE=my_nestjs_app
+DB_DATABASE=ecommerce_app
 
 # Application Configuration
 NODE_ENV=development
@@ -22,11 +22,11 @@ PORT=3000
 1. **Install PostgreSQL** (if not already installed)
 2. **Create the database**:
    ```sql
-   CREATE DATABASE my_nestjs_app;
+   CREATE DATABASE ecommerce_app;
    ```
 3. **Enable UUID extension** (required for UUID primary keys):
    ```sql
-   \c my_nestjs_app;
+   \c ecommerce_app;
    CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
    ```
 
@@ -55,26 +55,3 @@ PORT=3000
 - `npm run migration:create` - Create an empty migration file
 - `npm run seed` - Populate the database with demo data
 - `npm run seed:reset` - Reset database (revert migrations, run migrations, and seed)
-
-## Products Table Schema
-
-The products table includes the following columns:
-
-- `id` (UUID, Primary Key)
-- `name` (VARCHAR 255, Required)
-- `description` (TEXT, Optional)
-- `price` (DECIMAL 10,2, Required)
-- `stock` (INTEGER, Default: 0)
-- `category` (VARCHAR 100, Optional)
-- `sku` (VARCHAR 255, Optional)
-- `isActive` (BOOLEAN, Default: true)
-- `createdAt` (TIMESTAMP, Auto-generated)
-- `updatedAt` (TIMESTAMP, Auto-updated)
-
-## Indexes
-
-The following indexes are created for better performance:
-- `IDX_products_name` - On name column
-- `IDX_products_category` - On category column
-- `IDX_products_sku` - On sku column
-- `IDX_products_isActive` - On isActive column

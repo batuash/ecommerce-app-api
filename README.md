@@ -1,98 +1,371 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# E-Commerce App API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A comprehensive e-commerce API built with NestJS, TypeORM, and PostgreSQL. This application provides a complete order management system with product catalog, order processing, payment handling, and shipping management.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🚀 Features
 
-## Description
+- **Product Management**: Full CRUD operations for product catalog
+- **Order Processing**: Complete order lifecycle management with status tracking
+- **Payment Integration**: Support for multiple payment methods
+- **Shipping Management**: Address handling and shipping method selection
+- **Database Migrations**: Automated schema management with TypeORM
+- **Environment Configuration**: Multi-environment support with secure configuration
+- **Data Validation**: Comprehensive input validation with class-validator
+- **Testing**: Unit and integration tests included
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🏗️ Architecture
 
-## Project setup
+### Core Modules
+- **Products Module**: Product catalog management
+- **Orders Module**: Order processing and management
+- **Configuration Module**: Environment-based configuration
+- **Database Module**: TypeORM integration with PostgreSQL
 
-```bash
-$ npm install
-```
+### Database Schema
+- **Products**: Product catalog with inventory tracking
+- **Orders**: Order management with status tracking
+- **Order Items**: Individual items within orders
+- **Shipping**: Shipping address and method information
+- **Payment**: Payment method and billing information
 
-## Compile and run the project
+## 📋 Prerequisites
 
-```bash
-# development
-$ npm run start
+- Node.js (v18 or higher)
+- PostgreSQL (v12 or higher)
+- npm or yarn
 
-# watch mode
-$ npm run start:dev
+## 🛠️ Installation & Setup
 
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
+### 1. Clone and Install Dependencies
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+git clone <repository-url>
+cd ecommerce-app-api
+npm install
 ```
 
-## Deployment
+### 2. Environment Configuration
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Create a `.env` file in the root directory:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+```env
+# Database Configuration
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=password
+DB_DATABASE=ecommerce_app
+
+# Application Configuration
+NODE_ENV=development
+PORT=3000
+
+# TypeORM Configuration
+TYPEORM_SYNCHRONIZE=true
+TYPEORM_LOGGING=true
+```
+
+### 3. Database Setup
+
+1. **Create PostgreSQL database**:
+   ```sql
+   CREATE DATABASE ecommerce_app;
+   ```
+
+2. **Enable UUID extension**:
+   ```sql
+   \c ecommerce_app;
+   CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+   ```
+
+3. **Run migrations**:
+   ```bash
+   npm run migration:run
+   ```
+
+4. **Seed the database** (optional):
+   ```bash
+   npm run seed
+   ```
+
+## 🚀 Running the Application
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Development mode with hot reload
+npm run start:dev
+
+# Production mode
+npm run start:prod
+
+# Debug mode
+npm run start:debug
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 📚 API Documentation
 
-## Resources
+### Products Endpoints
 
-Check out a few resources that may come in handy when working with NestJS:
+#### Get All Products
+```http
+GET /products
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+#### Get Product by ID
+```http
+GET /products/:id
+```
 
-## Support
+### Orders Endpoints
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+#### Create Order
+```http
+POST /orders
+Content-Type: application/json
 
-## Stay in touch
+{
+  "customerEmail": "customer@example.com",
+  "customerName": "John Doe",
+  "customerPhone": "+1234567890",
+  "orderItems": [
+    {
+      "productId": "uuid-here",
+      "quantity": 2
+    }
+  ],
+  "shipping": {
+    "method": "standard",
+    "firstName": "John",
+    "lastName": "Doe",
+    "addressLine1": "123 Main St",
+    "city": "New York",
+    "state": "NY",
+    "postalCode": "10001",
+    "country": "USA"
+  },
+  "payment": {
+    "method": "credit_card",
+    "lastFourDigits": "1234",
+    "cardBrand": "visa"
+  },
+  "notes": "Please deliver after 5 PM"
+}
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+#### Get All Orders
+```http
+GET /orders
+```
 
-## License
+#### Get Order by ID
+```http
+GET /orders/:id
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 🧪 Testing
+
+```bash
+# Unit tests
+npm run test
+
+# Watch mode
+npm run test:watch
+
+# E2E tests
+npm run test:e2e
+
+# Test coverage
+npm run test:cov
+```
+
+## 🗄️ Database Schema
+
+### Entity Relationships
+
+```
+Products (1) ──→ (N) OrderItems (N) ──→ (1) Orders
+                                              │
+                                              ├── (1) Shipping
+                                              └── (1) Payment
+```
+
+### Entity Details
+
+#### Products
+- `id` (UUID, Primary Key)
+- `name` (VARCHAR)
+- `description` (TEXT)
+- `price` (DECIMAL)
+- `stock` (INTEGER)
+- `category` (VARCHAR)
+- `sku` (VARCHAR)
+- `isActive` (BOOLEAN)
+- `createdAt`, `updatedAt` (TIMESTAMP)
+
+#### Orders
+- `id` (UUID, Primary Key)
+- `orderNumber` (VARCHAR, Unique)
+- `customerEmail` (VARCHAR)
+- `customerName` (VARCHAR)
+- `customerPhone` (VARCHAR)
+- `status` (ENUM: pending, confirmed, processing, shipped, delivered, cancelled, refunded)
+- `subtotal`, `taxAmount`, `shippingCost`, `totalAmount` (DECIMAL)
+- `currency` (VARCHAR, default: USD)
+- `notes` (TEXT)
+- `shippedAt`, `deliveredAt` (TIMESTAMP)
+- `createdAt`, `updatedAt` (TIMESTAMP)
+
+#### Order Items
+- `id` (UUID, Primary Key)
+- `orderId` (UUID, Foreign Key)
+- `productId` (UUID, Foreign Key)
+- `quantity` (INTEGER)
+- `unitPrice` (DECIMAL)
+- `totalPrice` (DECIMAL)
+
+#### Shipping
+- `id` (UUID, Primary Key)
+- `orderId` (UUID, Foreign Key)
+- `method` (ENUM: standard, express, overnight)
+- `firstName`, `lastName` (VARCHAR)
+- `addressLine1`, `addressLine2` (VARCHAR)
+- `city`, `state`, `postalCode`, `country` (VARCHAR)
+- `phone`, `email` (VARCHAR)
+
+#### Payment
+- `id` (UUID, Primary Key)
+- `orderId` (UUID, Foreign Key)
+- `method` (ENUM: credit_card, debit_card, paypal, bank_transfer)
+- `lastFourDigits`, `cardBrand` (VARCHAR)
+- `expiryMonth`, `expiryYear` (VARCHAR)
+- `billingFirstName`, `billingLastName` (VARCHAR)
+- `billingAddress` (VARCHAR fields)
+
+## 🔧 Development Workflow
+
+### Database Management
+
+```bash
+# Generate migration from entity changes
+npm run migration:generate src/migrations/YourMigrationName
+
+# Create empty migration
+npm run migration:create src/migrations/YourMigrationName
+
+# Run migrations
+npm run migration:run
+
+# Revert last migration
+npm run migration:revert
+
+# Reset database (revert + run + seed)
+npm run seed:reset
+```
+
+### Code Quality
+
+```bash
+# Lint code
+npm run lint
+
+# Format code
+npm run format
+
+# Type checking
+npm run build
+```
+
+### Console Access
+
+```bash
+# Access application console for debugging
+npm run console
+```
+
+## 📁 Project Structure
+
+```
+src/
+├── config/           # Configuration files
+├── models/           # TypeORM entities
+├── migrations/       # Database migrations
+├── products/         # Products module
+├── orders/           # Orders module
+│   └── dto/         # Data Transfer Objects
+├── test/            # Test utilities and mocks
+└── main.ts          # Application entry point
+```
+
+## 🚀 Deployment
+
+### Production Environment Variables
+
+For production deployment, ensure you have the following environment variables configured:
+
+```env
+NODE_ENV=production
+DB_HOST=your-production-db-host
+DB_PORT=5432
+DB_USERNAME=your-production-username
+DB_PASSWORD=your-secure-password
+DB_DATABASE=your-production-database
+TYPEORM_SYNCHRONIZE=false
+TYPEORM_LOGGING=false
+```
+
+### Build and Deploy
+
+```bash
+# Build the application
+npm run build
+
+# Start in production mode
+npm run start:prod
+```
+
+### Docker Deployment (Optional)
+
+Create a `Dockerfile` in the root directory:
+
+```dockerfile
+FROM node:18-alpine
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY dist ./dist
+EXPOSE 3000
+
+CMD ["node", "dist/main"]
+```
+
+## 📚 Additional Resources
+
+- [NestJS Documentation](https://docs.nestjs.com)
+- [TypeORM Documentation](https://typeorm.io)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
+- [Class Validator Documentation](https://github.com/typestack/class-validator)
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+If you encounter any issues or have questions:
+
+1. Check the [Issues](https://github.com/your-repo/issues) page
+2. Create a new issue with detailed information
+3. Include environment details and error logs
+
+---
+
+**Built with ❤️ using NestJS, TypeORM, and PostgreSQL**
