@@ -69,13 +69,12 @@ TYPEORM_LOGGING=true
 
 1. **Create PostgreSQL database**:
    ```sql
-   CREATE DATABASE ecommerce_app;
+   createdb ecommerce_app_dev
    ```
 
 2. **Enable UUID extension**:
    ```sql
-   \c ecommerce_app;
-   CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+   psql -d ecommerce_app_dev -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
    ```
 
 3. **Run migrations**:
