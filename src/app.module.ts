@@ -7,26 +7,45 @@ import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
 import configuration from './config/configuration';
 
+/**
+ * Creates database configuration for TypeORM
+ * Uses connection URL if available, otherwise uses individual connection parameters
+ */
+const createDatabaseConfig = (configService: ConfigService) => {
+  const databaseUrl = configService.get<string>('database.url');
+  
+  if (databaseUrl) {
+    return { url: databaseUrl };
+  }
+  
+  return {
+    host: configService.get<string>('database.host'),
+    port: configService.get<number>('database.port'),
+    username: configService.get<string>('database.username'),
+    password: configService.get<string>('database.password'),
+    database: configService.get<string>('database.database'),
+  };
+};
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
-      envFilePath: ['.env.local', '.env'],
+      envFilePath: [
+        '.env',
+        process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : ""
+      ].filter(Boolean),
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get('database.host'),
-        port: configService.get('database.port'),
-        username: configService.get('database.username'),
-        password: configService.get('database.password'),
-        database: configService.get('database.database'),
+        ...createDatabaseConfig(configService),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         migrations: [__dirname + '/migrations/*{.ts,.js}'],
-        synchronize: configService.get('typeorm.synchronize'),
-        logging: configService.get('typeorm.logging'),
+        synchronize: configService.get<boolean>('typeorm.synchronize'),
+        logging: configService.get<boolean>('typeorm.logging'),
       }),
       inject: [ConfigService],
     }),

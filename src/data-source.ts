@@ -11,11 +11,17 @@ const appConfig = configuration();
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: appConfig.database.host,
-  port: appConfig.database.port,
-  username: appConfig.database.username,
-  password: appConfig.database.password,
-  database: appConfig.database.database,
+  // Use connection string if available, otherwise use individual parameters
+  ...(appConfig.database.url 
+    ? { url: appConfig.database.url }
+    : {
+        host: appConfig.database.host,
+        port: appConfig.database.port,
+        username: appConfig.database.username,
+        password: appConfig.database.password,
+        database: appConfig.database.database,
+      }
+  ),
   entities: Object.values(models),
   migrations: ['src/migrations/*.ts'],
   synchronize: false, // Always false for migrations
