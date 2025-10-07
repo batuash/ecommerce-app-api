@@ -12,4 +12,7 @@ export default () => ({
     synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true' || process.env.NODE_ENV !== 'production',
     logging: process.env.TYPEORM_LOGGING === 'true' || process.env.NODE_ENV === 'development',
   },
+  jwt: {
+    secret: process.env.JWT_SECRET || 'your-secret-key',
+  },
 });

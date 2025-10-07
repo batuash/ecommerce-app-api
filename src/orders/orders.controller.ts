@@ -8,15 +8,18 @@ import {
   HttpStatus,
   ValidationPipe,
   UsePipes,
+  UseGuards,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Order } from '../models/order.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
   async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<Order> {
@@ -33,6 +36,7 @@ export class OrdersController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(): Promise<Order[]> {
     try {
@@ -45,6 +49,7 @@ export class OrdersController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Order> {
     try {

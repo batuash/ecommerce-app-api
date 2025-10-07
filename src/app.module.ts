@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
+import { AuthModule } from './auth/auth.module';
 import configuration from './config/configuration';
 
 /**
@@ -51,6 +52,7 @@ const createDatabaseConfig = (configService: ConfigService) => {
     }),
     ProductsModule,
     OrdersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

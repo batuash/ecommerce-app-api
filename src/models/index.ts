@@ -3,6 +3,7 @@ import { Order } from './order.entity';
 import { OrderItem } from './order-item.entity';
 import { Shipping } from './shipping.entity';
 import { Payment } from './payment.entity';
+import { User } from './user.entity';
 
 export default {
   Product,
@@ -10,4 +11,5 @@ export default {
   OrderItem,
   Shipping,
   Payment,
+  User,
 };

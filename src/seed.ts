@@ -4,6 +4,8 @@ import { Order } from './models/order.entity';
 import { OrderItem } from './models/order-item.entity';
 import { Payment } from './models/payment.entity';
 import { Shipping } from './models/shipping.entity';
+import { User } from './models/user.entity';
+import * as bcrypt from 'bcrypt';
 
 const demoProducts = [
   {
@@ -171,6 +173,7 @@ async function resetTables() {
     const paymentRepository = AppDataSource.getRepository(Payment);
     const productRepository = AppDataSource.getRepository(Product);
     const shippingRepository = AppDataSource.getRepository(Shipping);
+    const userRepository = AppDataSource.getRepository(User);
 
     // Clear tables in the correct order due to foreign key constraints
     // Using raw SQL DELETE to avoid foreign key constraint issues
@@ -189,6 +192,9 @@ async function resetTables() {
     console.log('🧹 Clearing products table...');
     await productRepository.query('DELETE FROM products');
 
+    console.log('🧹 Clearing users table...');
+    await userRepository.query('DELETE FROM users');
+
     console.log('✅ All tables have been reset successfully!');
 
     // Display summary
@@ -198,6 +204,7 @@ async function resetTables() {
     console.log('   • payments: Cleared');
     console.log('   • products: Cleared');
     console.log('   • shipping: Cleared');
+    console.log('   • users: Cleared');
 
   } catch (error) {
     console.error('❌ Error resetting tables:', error);
@@ -219,8 +226,9 @@ async function seedDatabase() {
     await AppDataSource.initialize();
     console.log('✅ Database connection established');
 
-    // Get the product repository
+    // Get repositories
     const productRepository = AppDataSource.getRepository(Product);
+    const userRepository = AppDataSource.getRepository(User);
 
     // Check if products already exist
     const existingProducts = await productRepository.count();
@@ -238,10 +246,24 @@ async function seedDatabase() {
 
     console.log(`✅ Successfully seeded ${demoProducts.length} products!`);
 
+    // Insert demo user
+    console.log('👤 Inserting demo user...');
+    const hashedPassword = await bcrypt.hash('123456', 10);
+    const demoUser = userRepository.create({
+      email: 'aaa@bbb.ccc',
+      password: hashedPassword,
+      firstName: 'John',
+      lastName: 'Doe'
+    });
+    await userRepository.save(demoUser);
+
+    console.log('✅ Successfully seeded demo user!');
+
     // Display summary
     const categories = [...new Set(demoProducts.map((p) => p.category))];
     console.log('\n📊 Seeding Summary:');
     console.log(`   Total Products: ${demoProducts.length}`);
+    console.log(`   Demo User: ${demoUser.email} (${demoUser.firstName} ${demoUser.lastName})`);
     console.log(`   Categories: ${categories.join(', ')}`);
     console.log(
       `   Price Range: $${Math.min(...demoProducts.map((p) => p.price))} - $${Math.max(...demoProducts.map((p) => p.price))}`,

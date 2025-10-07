@@ -4,14 +4,17 @@ import {
   Param,
   HttpException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Product } from '../models/product.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(): Promise<Product[]> {
     try {
@@ -24,6 +27,7 @@ export class ProductsController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Product> {
     try {
